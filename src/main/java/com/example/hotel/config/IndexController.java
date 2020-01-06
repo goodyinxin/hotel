@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/")
 public class IndexController {
-        @RequestMapping("/")
+        @RequestMapping({"/","/index"})
         public String index()  {
-            return "forward:index.html";
+            return "index";
         }
     }
 
