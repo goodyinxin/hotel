@@ -13,10 +13,10 @@
 	</head>
 
 	<body class="text-center">
-		<form class="form-signin" th:action="@{/user/login}" action="dashboard.html">
+		<form class="form-signin" th:action="@{/user/login}" action="dashboard.html" method="post">
 			<img class="mb-4" th:src="@{/asserts/img/hotel.jpeg}" src="/asserts/img/bootstrap-solid.svg" alt="" width="300" height="172"/>
 			<h1 class="h3 mb-3 font-weight-normal">请登录</h1>
-			<p th:text="${msg}" style="color: red" th:if="#{}"></p>
+			<p th:text="${msg}" style="color: red" th:if="${not #strings.isEmpty(msg)}"></p>
 			<label class="sr-only">用户名</label>
 			<input name="username" type="text" class="form-control" placeholder="Username" required="" autofocus="">
 			<label class="sr-only">密码</label>
