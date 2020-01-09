@@ -21,7 +21,7 @@ public class UserController {
     public String list(Model model){
         List<User> list = service.list();
         model.addAttribute("list",list);
-        return "list";
+        return "user/list";
     }
 
 

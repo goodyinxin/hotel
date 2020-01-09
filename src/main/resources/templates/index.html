@@ -13,10 +13,25 @@
 	</head>
 
 	<body class="text-center">
+
+
 		<form class="form-signin" th:action="@{/user/login}" action="dashboard.html" method="post">
+
 			<img class="mb-4" th:src="@{/asserts/img/hotel.jpeg}" src="/asserts/img/bootstrap-solid.svg" alt="" width="300" height="172"/>
-			<h1 class="h3 mb-3 font-weight-normal">请登录</h1>
-			<p th:text="${msg}" style="color: red" th:if="${not #strings.isEmpty(msg)}"></p>
+			<h2 class="h3 mb-3 font-weight-normal">登录</h2>
+			<!--<p th:text="${msg}" style="color: red" th:if="${not #strings.isEmpty(msg)}"></p>-->
+
+			<!--警告框-->
+			<div class="position-sticky" >
+				<p id="myAlert" class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(msg)}">
+					<strong  th:text="${msg}">Holy guacamole!</strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</p>
+			</div>
+			<!--警告框-->
+
 			<label class="sr-only">用户名</label>
 			<input name="username" type="text" class="form-control" placeholder="Username" required="" autofocus="">
 			<label class="sr-only">密码</label>
@@ -31,7 +46,14 @@
 			<!--<a class="btn btn-sm">中文</a>
 			<a class="btn btn-sm">English</a>-->
 		</form>
+		<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}" src="asserts/js/bootstrap.min.js" ></script>
+		<script>
+			$('#myAlert').on('closed.bs.alert', function () {
+				$('.alert').alert('close');
+			})
 
+		</script>
 	</body>
 
 </html>
