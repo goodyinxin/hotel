@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <form class="form-signin"  action="dashboard.html" method="post">
+    <form class="form-signin">
 
       <img class="mb-4" src="/asserts/img/bootstrap-solid.svg" alt="" width="300" height="172"/>
       <h2 class="h3 mb-3 font-weight-normal">登录</h2>
@@ -27,7 +27,7 @@
           <input type="checkbox" value="remember-me"> 记住我
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" @click="open">登录</button>
       <p class="mt-5 mb-3 text-muted">© 2019-2020</p>
       <!--<a class="btn btn-sm">中文</a>
       <a class="btn btn-sm">English</a>-->
@@ -38,11 +38,27 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+
+  methods:{
+    open(){
+      this.$http.get('/try/ajax/ajax_info.txt').then(function(res){
+        document.write(res.body);
+        console.log('请求失败处理',res);
+      },function(){
+        console.log('请求失败处理');
+      });
+    }
+
+  },
+
+
 }
 </script>
 

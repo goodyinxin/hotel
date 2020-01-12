@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -25,5 +26,13 @@ public class UserController {
     }
 
 
+
+    @GetMapping("/getlist")
+    @ResponseBody
+    public List<User> getlist(Model model){
+        List<User> list = service.list();
+        model.addAttribute("list",list);
+        return list;
+    }
 
 }
