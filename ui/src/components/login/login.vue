@@ -30,9 +30,11 @@
 
   .login-wrap{
     height: 100%;
-    background:url('../../assets/img/background.png');
+    background:url('../../assets/img/background.png')no-repeat top;
+    background-size:cover;
+    background-attachment: fixed;
     display: flex;
-    align-content: center;
+    align-items: center;
     justify-content: center;
 
   }
