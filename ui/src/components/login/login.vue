@@ -10,7 +10,7 @@
       <el-form-item label="密码">
         <el-input v-model="formdata.password"></el-input>
       </el-form-item>
-      <el-button class="login-btn" type="primary">登录</el-button>
+      <el-button @click.prevent="login" class="login-btn" type="primary">登录</el-button>
     </el-form>
   </div>
 
@@ -22,7 +22,27 @@
            return{
                formdata:{username:'',password:''}
            }
-       }
+       },
+
+
+        methods:{
+
+           login(){
+               this.$http.post('/user/login',this.formdata)
+                   .then(res =>{
+                       console.log(res)
+
+                       const {data,msg,code}=res.data
+                       if(code ==='ok'){
+                         //this.$router.pust({name:'home'})
+                           this.$message.success(msg)
+
+                       }else {
+                           this.$message.error(msg)
+                       }
+                   })
+           }
+        }
     }
 </script>
 

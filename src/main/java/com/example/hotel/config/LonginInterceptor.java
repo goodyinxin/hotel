@@ -1,5 +1,6 @@
 package com.example.hotel.config;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,9 +11,12 @@ public class LonginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+        /*String method = request.getMethod();
+        if (method != null && "OPTIONS".equals(method.toUpperCase())) {
+            response = new Response();
+            return true;
+        }*/
         Object user = request.getSession().getAttribute("loginUser");
-
         if(user ==null){
             request.setAttribute("msg","没有权限请登录");
             request.getRequestDispatcher("/").forward(request,response);

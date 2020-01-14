@@ -18,7 +18,7 @@ logging:
      root: info
 
 server:  
-  port: 8080
+  port: 80
   session-timeout: 30  
   tomcat.max-threads: 0  
   tomcat.uri-encoding: UTF-8 
