@@ -27,20 +27,26 @@
 
         methods:{
 
-           login(){
-               this.$http.post('/user/login',this.formdata)
-                   .then(res =>{
-                       console.log(res)
+         async  login(){
+                const res   = await this.$http.post('/user/login',this.formdata)
+                 const {data,msg,code}=res.data
+                 if(code ==='ok'){
+                     this.$router.push({name:'home'})
+                     this.$message.success(msg)
+                 }else {
+                     this.$message.error(msg)
+                 }
 
+
+               /*this.$http.post('/user/login',this.formdata).then(res =>{
                        const {data,msg,code}=res.data
                        if(code ==='ok'){
-                         //this.$router.pust({name:'home'})
+                           this.$router.push({name:'home'})
                            this.$message.success(msg)
-
                        }else {
                            this.$message.error(msg)
                        }
-                   })
+                   })*/
            }
         }
     }
