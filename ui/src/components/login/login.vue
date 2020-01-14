@@ -27,10 +27,12 @@
 
         methods:{
 
-         async  login(){
-                const res   = await this.$http.post('/user/login',this.formdata)
+           async login(){
+                 const res   = await this.$http.post('/user/login',this.formdata)
                  const {data,msg,code}=res.data
                  if(code ==='ok'){
+                     localStorage.setItem('token',data[0])
+                     console.log(data[0])
                      this.$router.push({name:'home'})
                      this.$message.success(msg)
                  }else {
