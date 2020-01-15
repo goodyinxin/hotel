@@ -23,6 +23,13 @@
     <el-table
       :data="tableData"
       style="width: 100%">
+
+      <el-table-column
+        type="index"
+        label="#"
+        width="60">
+      </el-table-column>
+
       <el-table-column
         prop="date"
         label="日期"
@@ -36,6 +43,23 @@
       <el-table-column
         prop="address"
         label="地址">
+      </el-table-column>
+
+      <el-table-column
+        prop="address"
+        label="创建时间">
+      </el-table-column>
+
+
+      <el-table-column
+        prop="address"
+        label="用户状态">
+      </el-table-column>
+
+
+      <el-table-column
+        prop="address"
+        label="操作">
       </el-table-column>
     </el-table>
 
@@ -65,6 +89,22 @@
               address: '上海市普陀区金沙江路 1516 弄'
             }]
           }
+
+        },
+
+        created() {
+            this.getList()
+
+        },
+
+        methods: {
+
+            async getList(){
+                const AUTH_TOKEN =localStorage.getItem('token')
+                this.$http.defaults.headers.common[''] =AUTH_TOKEN
+                const res = await this.$http.post();
+
+            }
 
         }
     }

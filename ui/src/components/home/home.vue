@@ -2,21 +2,28 @@
   <el-container class="container">
     <el-header class="header">
 
-      <el-row>
+    <el-row>
         <el-col :span="4">
-        <div class="grid-content bg-purple">
-          <img src="../../assets/img/logo.png" height="51" width="178" >
-        </div></el-col>
+        <div class="logo">
+          <img src="../../assets/img/logo.png">
+
+        </div>
+          <h2>后台管理</h2>
+        </el-col>
         <el-col :span="18" class="middle"> <h2>后台管理</h2></el-col>
 
         <el-col :span="2"><div class="grid-content bg-purple">
+          <img src="../../assets/img/avatar.png" class='avatar' alt="">
           <a class="loginout" href="#" @click="handleSignout">退出</a>
         </div></el-col>
       </el-row>
 
+
+
+
     </el-header>
     <el-container>
-      <el-aside class="aside" width="240px">
+      <el-aside class="aside" width="180px">
        <!--侧边栏-->
                 <el-menu :unique-opened="true"
                  :router="true">
@@ -85,6 +92,8 @@
 
       methods:{
 
+
+
         handleSignout(){
           localStorage.clear()
           this.$message.success('退出成功')
@@ -103,7 +112,14 @@
   }
 
   .header{
-    background-color: coral;
+    /*background: url('../../assets/img/topbar.png');*/
+    background-color: ghostwhite;
+
+
+  }
+
+  .logo{
+    line-height: 50px;
   }
 
   .aside{
@@ -115,15 +131,25 @@
   }
 
 
-.middle{
-text-align: center;
+  .middle{
+    text-align: center;
 
-}
+  }
 .loginout{
   text-decoration: none;
   line-height: 60px;
 }
 
-
+  .avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .header-logo {
+    display: inline-block;
+    vertical-align: middle;
+  }
 
 </style>
