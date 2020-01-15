@@ -20,47 +20,19 @@
 
 
     <!--表格-->
-    <el-table
-      :data="tableData"
-      style="width: 100%">
-
-      <el-table-column
-        type="index"
-        label="#"
-        width="60">
+    <el-table :data="tableData"style="width: 100%">
+      <el-table-column type="index" label="序号"   width="60">   </el-table-column>
+      <el-table-column   prop="name"     label="姓名"  width="180">  </el-table-column>
+      <el-table-column   prop="gende"  label="性别"> </el-table-column>
+      <el-table-column   prop="age"  label="年龄"> </el-table-column>
+      <el-table-column   prop="moblie"  label="手机"> </el-table-column>
+      <el-table-column   prop="createtime"  label="创建时间">
+        <template slot-scope="tableData">
+          {{tableData.row.createtime | fmtdate}}
+        </template>
       </el-table-column>
-
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
-
-      <el-table-column
-        prop="address"
-        label="创建时间">
-      </el-table-column>
-
-
-      <el-table-column
-        prop="address"
-        label="用户状态">
-      </el-table-column>
-
-
-      <el-table-column
-        prop="address"
-        label="操作">
-      </el-table-column>
+      <el-table-column   prop="address"  label="用户状态"> </el-table-column>
+      <el-table-column   prop="" label="操作"> </el-table-column>
     </el-table>
 
   </el-card>
@@ -71,23 +43,10 @@
         data(){
           return{
             query:'',
-            tableData :[{
-              date: '2016-05-02',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-              date: '2016-05-04',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-              date: '2016-05-03',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1516 弄'
-            }]
+            tableData :[],
+            total:-1,
+            pagenum:1,
+            pagesize:2
           }
 
         },
@@ -101,10 +60,21 @@
 
             async getList(){
                 const AUTH_TOKEN =localStorage.getItem('token')
-                this.$http.defaults.headers.common[''] =AUTH_TOKEN
-                const res = await this.$http.post();
+              console.log("token",AUTH_TOKEN)
+                this.$http.defaults.headers.common['AUTH_TOKEN'] =AUTH_TOKEN
+                const res = await this.$http.get('/user/list');
+                console.log("22222",res);
+                const {msg,code,data} =res.data;
+                if(code ==='ok'){
+                  this.tableData=data;
+                 /* this.total=total;*/
+                  this.$message.success(msg)
 
+                }else {
+
+                }
             }
+
 
         }
     }

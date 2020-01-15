@@ -2,6 +2,7 @@ package com.example.hotel.controller;
 
 import com.example.hotel.entity.User;
 import com.example.hotel.service.UserService;
+import com.example.hotel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,20 +20,17 @@ public class UserController {
 
 
     @GetMapping("/list")
-    public String list(Model model){
-        List<User> list = service.list();
-        model.addAttribute("list",list);
-        return "user/list";
-    }
-
-
-
-    @GetMapping("/getlist")
     @ResponseBody
-    public List<User> getlist(Model model){
+    public Result list(){
+        Result result = new Result();
         List<User> list = service.list();
-        model.addAttribute("list",list);
-        return list;
+        result.setData(list);
+        result.setCode("ok");
+        result.setMsg("查询成功");
+        return result;
     }
+
+
+
 
 }

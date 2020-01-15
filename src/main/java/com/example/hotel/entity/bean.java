@@ -7,8 +7,16 @@ public abstract  class bean {
     private Integer id;
     private String createman;
     private String modifyman;
-    private Date createtime;
-    private Date modifytime;
+    private Date createtime =new Date();
+    private Date modifytime=new Date();
+
+    public bean(Integer id, String createman, String modifyman, Date createtime, Date modifytime) {
+        this.id = id;
+        this.createman = createman;
+        this.modifyman = modifyman;
+        this.createtime = createtime;
+        this.modifytime = modifytime;
+    }
 
     public Integer getId() {
         return id;

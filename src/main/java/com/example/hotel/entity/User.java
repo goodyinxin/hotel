@@ -1,6 +1,8 @@
 package com.example.hotel.entity;
 
 
+import java.util.Date;
+
 public  class User extends bean{
 
     private String name;
@@ -9,8 +11,9 @@ public  class User extends bean{
     private String moblie;
 
 
-    public User(String name, String gende, Integer age, String moblie) {
-        super();
+
+    public User(Integer id, String createman, String modifyman, Date createtime, Date modifytime, String name, String gende, Integer age, String moblie) {
+        super(id, createman, modifyman, createtime, modifytime);
         this.name = name;
         this.gende = gende;
         this.age = age;
