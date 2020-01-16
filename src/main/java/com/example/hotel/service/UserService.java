@@ -1,7 +1,12 @@
 package com.example.hotel.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.hotel.entity.User;
-import org.springframework.data.domain.Page;
+import com.example.hotel.mapper.UserMapper;
+import com.example.hotel.utils.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +18,21 @@ import java.util.List;
 public class UserService{
 
 
-    public List<User> list() {
-        List<User> list = Arrays.asList();
+    @Autowired
+    UserMapper userMapper;
 
-        return  list;
+    public Result list() {
+
+        Page<User> page = new Page<>(1,1);
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.like("user_name","李");
+        IPage<User> userIPage = userMapper.selectPage(page,wrapper);
+        Result result = new Result();
+        result.setData(userIPage.getRecords());
+        return  result;
 
     }
 
 
-    public Page<User> findAll(Pageable pageable) {
-        return null;
-    }
 
-
-    public <S extends User> S saveAndFlush(S entity) {
-        return null;
-    }
 }

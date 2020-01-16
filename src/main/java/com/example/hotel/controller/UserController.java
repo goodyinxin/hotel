@@ -22,9 +22,7 @@ public class UserController {
     @GetMapping("/list")
     @ResponseBody
     public Result list(){
-        Result result = new Result();
-        List<User> list = service.list();
-        result.setData(list);
+        Result result = service.list();
         result.setCode("ok");
         result.setMsg("查询成功");
         return result;

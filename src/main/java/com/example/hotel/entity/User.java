@@ -1,71 +1,99 @@
 package com.example.hotel.entity;
 
 
-import javax.persistence.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.Date;
 
 
 
-@Entity
-@Table(name="manage_user")
-public  class User extends bean{
+@TableName("admin_user")
+public  class User {
 
-    @Id
-    @GeneratedValue
-    @Column(name="u_id",length = 20)
-    private Integer id;
-    @Column(name="u_name",length = 10)
-    private String name;
-    @Column(name="u_gende",length = 1)
-    private String gende;
-    @Column(name="u_age", length = 10)
-    private Integer age;
-    @Column(name="u_moblie" ,length=10)
-    private String moblie;
+    @TableId(type = IdType.AUTO)
+    private Integer userId;
+    private String userName;
+    private String userGende;
+    private Integer userAge;
+    private String userMoblie;
+    private String createman;
+    private String modifyman;
+    private Date createtime;
+    private Date modifytime;
 
-
-    public User(String createman, String modifyman, Date createtime, Date modifytime, String name, String gende, Integer age, String moblie) {
-        super(createman, modifyman, createtime, modifytime);
-        this.name = name;
-        this.gende = gende;
-        this.age = age;
-        this.moblie = moblie;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public User(String createman, String modifyman, Date createtime, Date modifytime) {
-        super(createman, modifyman, createtime, modifytime);
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getGende() {
-        return gende;
+    public String getUserGende() {
+        return userGende;
     }
 
-    public void setGende(String gende) {
-        this.gende = gende;
+    public void setUserGende(String userGende) {
+        this.userGende = userGende;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getUserAge() {
+        return userAge;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setUserAge(Integer userAge) {
+        this.userAge = userAge;
     }
 
-    public String getMoblie() {
-        return moblie;
+    public String getUserMoblie() {
+        return userMoblie;
     }
 
-    public void setMoblie(String moblie) {
-        this.moblie = moblie;
+    public void setUserMoblie(String userMoblie) {
+        this.userMoblie = userMoblie;
+    }
+
+    public String getCreateman() {
+        return createman;
+    }
+
+    public void setCreateman(String createman) {
+        this.createman = createman;
+    }
+
+    public String getModifyman() {
+        return modifyman;
+    }
+
+    public void setModifyman(String modifyman) {
+        this.modifyman = modifyman;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getModifytime() {
+        return modifytime;
+    }
+
+    public void setModifytime(Date modifytime) {
+        this.modifytime = modifytime;
     }
 }
+
+

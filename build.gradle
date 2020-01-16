@@ -26,6 +26,11 @@ dependencies {
     implementation (group: 'mysql', name: 'mysql-connector-java')
     implementation ('org.webjars:bootstrap:4.0.0')
     implementation ('org.webjars:jquery:3.4.1')
+
+
+    implementation (group: 'com.baomidou', name: 'mybatis-plus', version: '3.1.1')
+    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-autoconfigure', version: '2.1.1'
+
 }
 
 test {
