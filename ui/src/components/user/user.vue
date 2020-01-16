@@ -23,7 +23,14 @@
     <el-table :data="tableData"style="width: 100%">
       <el-table-column type="index" label="序号"   width="60">   </el-table-column>
       <el-table-column   prop="name"     label="姓名"  width="180">  </el-table-column>
-      <el-table-column   prop="gende"  label="性别"> </el-table-column>
+      <el-table-column   prop="gende"  label="性别">
+
+        <template slot-scope="obj">
+          {{obj.row.gende=='1'? '男':'女'}}
+
+        </template>
+
+      </el-table-column>
       <el-table-column   prop="age"  label="年龄"> </el-table-column>
       <el-table-column   prop="moblie"  label="手机"> </el-table-column>
       <el-table-column   prop="createtime"  label="创建时间">
@@ -31,9 +38,32 @@
           {{tableData.row.createtime | fmtdate}}
         </template>
       </el-table-column>
-      <el-table-column   prop="address"  label="用户状态"> </el-table-column>
-      <el-table-column   prop="" label="操作"> </el-table-column>
+
+
+     <!-- <el-table-column   prop="address"  label="用户状态">
+      </el-table-column>
+      -->
+      <el-table-column   prop="" label="操作">
+
+        <template slot-scope="scope">
+          <el-button type="primary" icon="el-icon-edit"></el-button>
+          <el-button type="danger" icon="el-icon-delete"></el-button>
+        </template>
+      </el-table-column>
     </el-table>
+
+
+    <!--分页-->
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pagenum"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="pagesize"
+      background
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
 
   </el-card>
 </template>
@@ -58,20 +88,24 @@
 
         methods: {
 
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            },
+
             async getList(){
-                const AUTH_TOKEN =localStorage.getItem('token')
-              console.log("token",AUTH_TOKEN)
-                this.$http.defaults.headers.common['AUTH_TOKEN'] =AUTH_TOKEN
+                const AUTH_TOKEN =localStorage.getItem('token');
+                this.$http.defaults.headers.common['AUTH_TOKEN'] =AUTH_TOKEN;
                 const res = await this.$http.get('/user/list');
-                console.log("22222",res);
                 const {msg,code,data} =res.data;
                 if(code ==='ok'){
                   this.tableData=data;
                  /* this.total=total;*/
-                  this.$message.success(msg)
-
+                  //this.$message.success(msg)
                 }else {
-
+                  this.$message.warning(msg)
                 }
             }
 

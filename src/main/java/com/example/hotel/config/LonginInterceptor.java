@@ -1,5 +1,6 @@
 package com.example.hotel.config;
 
+import com.example.hotel.utils.Result;
 import org.apache.catalina.connector.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +23,15 @@ public class LonginInterceptor implements HandlerInterceptor {
             return true;
         }*/
 
-//        String token = request.getHeader("AUTH_TOKEN");
-//        log.info("token--{}",token);
+        String token = request.getHeader("AUTH_TOKEN");
+        log.info("token--{}",token);
         Object  userToken = request.getSession().getAttribute("token");
         log.info("seesion",request.getSession());
-        if(userToken!=null){
-            request.setAttribute("msg","没有权限请登录");
-            request.getRequestDispatcher("/").forward(request,response);
+        if(!String.valueOf(userToken).equals(token)){
+            Result result = new Result();
+            result.setCode("error");
+            result.setMsg("没有权限请登录");
+
             return false;
         }else {
             return true;

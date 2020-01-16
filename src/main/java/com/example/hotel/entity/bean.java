@@ -1,30 +1,28 @@
 package com.example.hotel.entity;
 
+
+
+import javax.persistence.Column;
 import java.util.Date;
 
 public abstract  class bean {
-
-    private Integer id;
+    @Column(name="c_createman")
     private String createman;
+    @Column(name="c_modifyman")
     private String modifyman;
+    @Column(name="c_createtime")
     private Date createtime =new Date();
+    @Column(name="c_modifytime")
     private Date modifytime=new Date();
 
-    public bean(Integer id, String createman, String modifyman, Date createtime, Date modifytime) {
-        this.id = id;
+    public bean( String createman, String modifyman, Date createtime, Date modifytime) {
         this.createman = createman;
         this.modifyman = modifyman;
         this.createtime = createtime;
         this.modifytime = modifytime;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getCreateman() {
         return createman;

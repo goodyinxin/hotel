@@ -6,6 +6,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Arrays;
+
 /**
  * 跨域问题
  *
@@ -19,6 +21,8 @@ public class CorsConfig {
         corsConfiguration.addAllowedOrigin("*"); // 1 允许任何域名使用
         corsConfiguration.addAllowedHeader("*"); // 2 允许任何头
         corsConfiguration.addAllowedMethod("*"); // 3 允许任何方法（post、get等）
+        corsConfiguration.setAllowCredentials(true);////是否发送Cookie信息
+        corsConfiguration.setExposedHeaders(Arrays.asList("token","AUTH_TOKEN"));
         return corsConfiguration;
     }
 
