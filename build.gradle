@@ -9,9 +9,13 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url "https://repo.spring.io/milestone" }
-    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+
 }
 
 dependencies {
@@ -28,8 +32,9 @@ dependencies {
     implementation ('org.webjars:jquery:3.4.1')
 
 
-    implementation (group: 'com.baomidou', name: 'mybatis-plus', version: '3.1.1')
-    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-autoconfigure', version: '2.1.1'
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter',version: '3.1.1'
+    implementation group: 'com.baomidou', name: 'mybatis-plus-generator', version: '3.1.1'
+
 
 }
 

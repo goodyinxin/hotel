@@ -22,7 +22,6 @@ public class UserService{
     UserMapper userMapper;
 
     public Result list() {
-
         Page<User> page = new Page<>(1,1);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.like("user_name","李");

@@ -99,6 +99,7 @@
                 const AUTH_TOKEN =localStorage.getItem('token');
                 this.$http.defaults.headers.common['AUTH_TOKEN'] =AUTH_TOKEN;
                 const res = await this.$http.get('/user/list');
+                console.log('xxxxxxxx',res)
                 const {msg,code,data} =res.data;
                 if(code ==='ok'){
                   this.tableData=data;
