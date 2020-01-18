@@ -2,9 +2,9 @@ package com.example.hotel.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.hotel.entity.User;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 
-@Mapper
+@Component
 public interface UserMapper extends BaseMapper<User> {
 }

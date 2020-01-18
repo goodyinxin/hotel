@@ -11,10 +11,10 @@
     <!--搜索-->
     <el-row class="searchRow">
       <el-col>
-        <el-input placeholder="请输入内容" v-model="query" class="inputSeach">
-          <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-input placeholder="请输入内容" v-model="page.query" class="inputSeach">
+          <el-button slot="append" icon="el-icon-search" @click="queryList"></el-button>
         </el-input>
-        <el-button type="success">添加用户</el-button>
+        <el-button type="success" >添加用户</el-button>
       </el-col>
     </el-row>
 
@@ -22,17 +22,17 @@
     <!--表格-->
     <el-table :data="tableData"style="width: 100%">
       <el-table-column type="index" label="序号"   width="60">   </el-table-column>
-      <el-table-column   prop="name"     label="姓名"  width="180">  </el-table-column>
-      <el-table-column   prop="gende"  label="性别">
+      <el-table-column   prop="userName"     label="姓名"  width="180">  </el-table-column>
+      <el-table-column   prop="userGende"  label="性别">
 
         <template slot-scope="obj">
-          {{obj.row.gende=='1'? '男':'女'}}
+          {{obj.row.userGende=='1'? '男':'女'}}
 
         </template>
 
       </el-table-column>
-      <el-table-column   prop="age"  label="年龄"> </el-table-column>
-      <el-table-column   prop="moblie"  label="手机"> </el-table-column>
+      <el-table-column   prop="userAge"  label="年龄"> </el-table-column>
+      <el-table-column   prop="userMoblie"  label="手机"> </el-table-column>
       <el-table-column   prop="createtime"  label="创建时间">
         <template slot-scope="tableData">
           {{tableData.row.createtime | fmtdate}}
@@ -57,9 +57,9 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pagenum"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="pagesize"
+      :current-page="page.pagenum"
+      :page-sizes="[5, 10, 20]"
+      :page-size="page.pagesize"
       background
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
@@ -72,11 +72,10 @@
     export default {
         data(){
           return{
-            query:'',
             tableData :[],
-            total:-1,
-            pagenum:1,
-            pagesize:2
+            total:0,
+            page:{pagenum:1,pagesize:10,query:''}
+
           }
 
         },
@@ -90,20 +89,29 @@
 
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
+                this.page.pagesize=val;
+                this.getList()
             },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
+                this.page.pagenum=val;
+                this.getList()
             },
+
+          queryList(){
+            this.getList()
+          },
 
             async getList(){
                 const AUTH_TOKEN =localStorage.getItem('token');
                 this.$http.defaults.headers.common['AUTH_TOKEN'] =AUTH_TOKEN;
-                const res = await this.$http.get('/user/list');
+                const res = await this.$http.post('/user/list',this.page);
                 console.log('xxxxxxxx',res)
                 const {msg,code,data} =res.data;
+                const obj =data[0];
                 if(code ==='ok'){
-                  this.tableData=data;
-                 /* this.total=total;*/
+                  this.tableData=obj.records;
+                  this.total=obj.total;
                   //this.$message.success(msg)
                 }else {
                   this.$message.warning(msg)

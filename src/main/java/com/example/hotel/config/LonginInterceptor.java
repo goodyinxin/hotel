@@ -27,11 +27,10 @@ public class LonginInterceptor implements HandlerInterceptor {
         log.info("token--{}",token);
         Object  userToken = request.getSession().getAttribute("token");
         log.info("seesion",request.getSession());
-        if(!String.valueOf(userToken).equals(token)){
+        if(userToken ==null || !String.valueOf(userToken).equals(token)){
             Result result = new Result();
             result.setCode("error");
             result.setMsg("没有权限请登录");
-
             return false;
         }else {
             return true;

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.hotel.entity.User;
 import com.example.hotel.mapper.UserMapper;
+import com.example.hotel.utils.PageInfo;
 import com.example.hotel.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,15 +20,17 @@ public class UserService{
 
 
     @Autowired
-    UserMapper userMapper;
+  private   UserMapper userMapper;
 
-    public Result list() {
-        Page<User> page = new Page<>(1,1);
+    public Result list(PageInfo info) {
+        Page<User> page = new Page<>(info.getPagenum(),info.getPagesize());
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.like("user_name","李");
+        if(info.getQuery()!=null){
+            wrapper.like("user_name",info.getQuery());
+        }
         IPage<User> userIPage = userMapper.selectPage(page,wrapper);
         Result result = new Result();
-        result.setData(userIPage.getRecords());
+        result.getData().add(userIPage);
         return  result;
 
     }

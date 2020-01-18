@@ -1,4 +1,4 @@
-package com.example.hotel;
+package com.example.hotel.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;

@@ -1,11 +1,12 @@
 package com.example.hotel.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
 
     private String msg;
-    private List data;
+    private List data = new ArrayList();
     private String code;
 
     public String getCode() {
