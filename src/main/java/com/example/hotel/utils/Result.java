@@ -9,6 +9,14 @@ public class Result {
     private List data = new ArrayList();
     private String code;
 
+    public Result() {
+    }
+
+    public Result(String msg, String code) {
+        this.msg = msg;
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }
