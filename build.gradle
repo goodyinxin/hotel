@@ -26,7 +26,7 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude (group: 'org.junit.vintage', module: 'junit-vintage-engine')
     }
-    testImplementation ('org.springframework.security:spring-security-test')
+    //testImplementation ('org.springframework.security:spring-security-test')
     implementation (group: 'mysql', name: 'mysql-connector-java')
     implementation ('org.webjars:bootstrap:4.0.0')
     implementation ('org.webjars:jquery:3.4.1')
