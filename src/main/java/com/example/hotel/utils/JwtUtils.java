@@ -1,6 +1,6 @@
 package com.example.hotel.utils;
+import com.example.hotel.entity.User;
 import io.jsonwebtoken.*;
-import javax.crypto.SecretKey;
 import java.util.Date;
 
 public class JwtUtils {
@@ -10,19 +10,17 @@ public class JwtUtils {
     private static  final   long   ttlMillis =1000*60*30;
     /**
      * 签发JWT
-     * @param id
-     * @param subject 可以是JSON数据 尽可能少
      * @return  String
      *
      */
-    public static String createJWT(String id, String subject) {
+    public static String createJWT(User user) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
 
         JwtBuilder builder = Jwts.builder()
-                .setId(id)
-                .setSubject(subject)   // 主题
+                .setId(user.getAdminId().toString())
+                .setSubject(user.getAdminUsername())   // 主题
                 .setIssuer("user")     // 签发者
                 .setIssuedAt(now)      // 签发时间
                 .signWith(signatureAlgorithm, key); // 签名算法以及密匙
@@ -70,8 +68,6 @@ public class JwtUtils {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println("hello world");
-    }
+
 
 }

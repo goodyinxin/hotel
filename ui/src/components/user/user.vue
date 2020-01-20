@@ -20,19 +20,19 @@
 
 
     <!--表格-->
-    <el-table :data="tableData"style="width: 100%">
+    <el-table :data="tableData"style="width: 100%" class="Eltable">
       <el-table-column type="index" label="序号"   width="60">   </el-table-column>
-      <el-table-column   prop="userName"     label="姓名"  width="180">  </el-table-column>
-      <el-table-column   prop="userGende"  label="性别">
+      <el-table-column   prop="adminNickname"     label="姓名"  width="180">  </el-table-column>
+      <el-table-column   prop="adminGende"  label="性别">
 
         <template slot-scope="obj">
-          {{obj.row.userGende=='1'? '男':'女'}}
+          {{obj.row.adminGende=='1'? '男':'女'}}
 
         </template>
 
       </el-table-column>
-      <el-table-column   prop="userAge"  label="年龄"> </el-table-column>
-      <el-table-column   prop="userMoblie"  label="手机"> </el-table-column>
+      <el-table-column   prop="adminAge"  label="年龄"> </el-table-column>
+      <el-table-column   prop="adminMoblie"  label="手机"> </el-table-column>
       <el-table-column   prop="createtime"  label="创建时间">
         <template slot-scope="tableData">
           {{tableData.row.createtime | fmtdate}}
@@ -106,9 +106,8 @@
                 const AUTH_TOKEN =localStorage.getItem('token');
                 this.$http.defaults.headers.common['AUTH_TOKEN'] =AUTH_TOKEN;
                 const res = await this.$http.post('/user/list',this.page);
-                console.log('xxxxxxxx',res)
                 const {msg,code,data} =res.data;
-                const obj =data[0];
+                var obj = data[0];
                 if(code ==='ok'){
                   this.tableData=obj.records;
                   this.total=obj.total;
@@ -135,4 +134,15 @@
   .searchRow{
     margin-top: 20px;
   }
+
+
+  .Eltable th{
+     padding: 0px 0!important;
+
+  }
+
+.Eltable td{
+  padding: 0px 0!important;
+
+}
 </style>

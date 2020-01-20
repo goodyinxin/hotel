@@ -13,54 +13,73 @@ import java.util.Date;
 public  class User {
 
     @TableId(type = IdType.AUTO)
-    private Integer userId;
-    private String userName;
-    private String userGende;
-    private Integer userAge;
-    private String userMoblie;
+    private Integer adminId;
+    private String adminUsername;
+    private String adminPassword;
+    private String adminNickname;
+    private String adminGende;
+    private Integer adminAge;
+    private String adminMoblie;
     private String createman;
     private String modifyman;
     private Date createtime;
     private Date modifytime;
 
-    public Integer getUserId() {
-        return userId;
+
+    public Integer getAdminId() {
+        return adminId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getAdminUsername() {
+        return adminUsername;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAdminUsername(String adminUsername) {
+        this.adminUsername = adminUsername;
     }
 
-    public String getUserGende() {
-        return userGende;
+    public String getAdminPassword() {
+        return adminPassword;
     }
 
-    public void setUserGende(String userGende) {
-        this.userGende = userGende;
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
     }
 
-    public Integer getUserAge() {
-        return userAge;
+    public String getAdminNickname() {
+        return adminNickname;
     }
 
-    public void setUserAge(Integer userAge) {
-        this.userAge = userAge;
+    public void setAdminNickname(String adminNickname) {
+        this.adminNickname = adminNickname;
     }
 
-    public String getUserMoblie() {
-        return userMoblie;
+    public String getAdminGende() {
+        return adminGende;
     }
 
-    public void setUserMoblie(String userMoblie) {
-        this.userMoblie = userMoblie;
+    public void setAdminGende(String adminGende) {
+        this.adminGende = adminGende;
+    }
+
+    public Integer getAdminAge() {
+        return adminAge;
+    }
+
+    public void setAdminAge(Integer adminAge) {
+        this.adminAge = adminAge;
+    }
+
+    public String getAdminMoblie() {
+        return adminMoblie;
+    }
+
+    public void setAdminMoblie(String adminMoblie) {
+        this.adminMoblie = adminMoblie;
     }
 
     public String getCreateman() {
