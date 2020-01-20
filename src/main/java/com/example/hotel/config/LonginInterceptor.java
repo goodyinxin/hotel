@@ -3,7 +3,6 @@ package com.example.hotel.config;
 import com.example.hotel.utils.JwtUtils;
 import com.example.hotel.utils.Result;
 import io.jsonwebtoken.Claims;
-import org.apache.catalina.connector.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,11 +18,7 @@ public class LonginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        /*String method = request.getMethod();
-        if (method != null && "OPTIONS".equals(method.toUpperCase())) {
-            response = new Response();
-            return true;
-        }*/
+
 
         String token = request.getHeader("AUTH_TOKEN");
         log.info("token--{}",token);

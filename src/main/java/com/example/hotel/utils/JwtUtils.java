@@ -61,10 +61,16 @@ public class JwtUtils {
      * @throws Exception
      */
     public static Claims parseJWT(String jwt) throws Exception {
-        return Jwts.parser()
-            .setSigningKey(key)
-            .parseClaimsJws(jwt)
-            .getBody();
+        Claims claims =null;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(key)
+                    .parseClaimsJws(jwt)
+                    .getBody();
+        }catch (Exception e){
+            throw new RuntimeException("token无效");
+        }
+        return claims;
     }
 
 

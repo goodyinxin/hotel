@@ -11,10 +11,10 @@
     <!--搜索-->
     <el-row class="searchRow">
       <el-col>
-        <el-input placeholder="请输入内容" v-model="page.query" class="inputSeach">
+        <el-input placeholder="请输入内容" v-model="page.query" @clear="reload" clearable class="inputSeach">
           <el-button slot="append" icon="el-icon-search" @click="queryList"></el-button>
         </el-input>
-        <el-button type="success" >添加用户</el-button>
+        <el-button type="success" @click="showDia">添加用户</el-button>
       </el-col>
     </el-row>
 
@@ -65,6 +65,40 @@
       :total="total">
     </el-pagination>
 
+
+    <!--对话框-->
+    <!--添加的对话框-->
+
+    <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="用户名" label-width="80px">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+
+          <el-form-item label="密码" label-width="80px">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+
+        <el-form-item label="邮箱" label-width="80px">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+
+        <el-form-item label="手机" label-width="80px">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+       <!-- <el-form-item label="活动区域" :label-width="formLabelWidth">
+          <el-select v-model="form.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>-->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </el-card>
 </template>
 
@@ -74,7 +108,9 @@
           return{
             tableData :[],
             total:0,
-            page:{pagenum:1,pagesize:10,query:''}
+            page:{pagenum:1,pagesize:10,query:''},
+            dialogFormVisible:false,
+            form:''
 
           }
 
@@ -86,6 +122,15 @@
         },
 
         methods: {
+
+          showDia(){
+            this.dialogFormVisible=true
+          },
+
+          reload(){
+            //重新加载数据
+            this.getList();
+          },
 
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
