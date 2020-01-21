@@ -47,7 +47,7 @@
 
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit"></el-button>
-          <el-button type="danger" icon="el-icon-delete"></el-button>
+          <el-button type="danger" @click="remove" icon="el-icon-delete"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -72,19 +72,19 @@
     <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="用户名" label-width="80px">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+          <el-input v-model="form.adminUsername" autocomplete="off"></el-input>
         </el-form-item>
 
           <el-form-item label="密码" label-width="80px">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+          <el-input v-model="form.adminPassword" autocomplete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="邮箱" label-width="80px">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+        <el-form-item label="昵称" label-width="80px">
+          <el-input v-model="form.adminNickname" autocomplete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="手机" label-width="80px">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+          <el-input v-model="form.adminMoblie" autocomplete="off"></el-input>
         </el-form-item>
        <!-- <el-form-item label="活动区域" :label-width="formLabelWidth">
           <el-select v-model="form.region" placeholder="请选择活动区域">
@@ -95,7 +95,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="save">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -110,7 +110,19 @@
             total:0,
             page:{pagenum:1,pagesize:10,query:''},
             dialogFormVisible:false,
-            form:''
+            form:{
+                adminId:'',
+                adminUsername:'',
+                adminPassword:'',
+                adminNickname:'',
+                adminGende:'',
+                adminAge:'',
+                adminMoblie:'',
+                createman:'',
+                modifyman:'',
+                createtime:'',
+                modifytime:''
+            }
 
           }
 
@@ -122,6 +134,43 @@
         },
 
         methods: {
+
+
+
+            remove(){
+
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+
+            },
+
+
+
+          /*添加用户*/
+            async  save(){
+                this.dialogFormVisible=false;
+              const res = await this.$http.post('/user/save',this.form);
+              const {msg,code,data} =res.data;
+                if(code ==='ok'){
+                    this.getList()
+                    this.form={}
+                }else {
+                    this.$message.warning(msg)
+                }
+            },
 
           showDia(){
             this.dialogFormVisible=true
@@ -153,6 +202,7 @@
                 const res = await this.$http.post('/user/list',this.page);
                 const {msg,code,data} =res.data;
                 var obj = data[0];
+                console.log(obj)
                 if(code ==='ok'){
                   this.tableData=obj.records;
                   this.total=obj.total;

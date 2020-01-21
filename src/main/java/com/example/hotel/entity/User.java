@@ -12,8 +12,8 @@ import java.util.Date;
 @TableName("admin_user")
 public  class User {
 
-    @TableId(type = IdType.AUTO)
-    private Integer adminId;
+   // @TableId(type = IdType.AUTO)
+    private Long adminId;
     private String adminUsername;
     private String adminPassword;
     private String adminNickname;
@@ -26,11 +26,11 @@ public  class User {
     private Date modifytime;
 
 
-    public Integer getAdminId() {
+    public Long getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(Integer adminId) {
+    public void setAdminId(Long adminId) {
         this.adminId = adminId;
     }
 

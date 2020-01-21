@@ -6,23 +6,21 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.hotel.entity.User;
 import com.example.hotel.mapper.UserMapper;
-import com.example.hotel.utils.Main;
-import com.example.hotel.utils.PageInfo;
-import com.example.hotel.utils.Result;
+import com.example.hotel.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+
 
 @Service
 public class UserService{
 
-
-    @Autowired
+  @Autowired
   private   UserMapper userMapper;
+  @Autowired
+  private SnowflakeIdWorker sequence;
+
 
     public Result list(PageInfo info) {
         Page<User> page = new Page<>(info.getPagenum(),info.getPagesize());
@@ -45,4 +43,19 @@ public class UserService{
     }
 
 
+    public Result save(User bean) {
+        Result result = new Result();
+        long id = sequence.nextId();
+       // bean.setAdminId(id);
+        int i = userMapper.insert(bean);
+        if(i>0){
+            result.setCode(State.OK.INFO());
+            result.setMsg("添加成功");
+        }else {
+            result.setCode(State.FAIL.INFO());
+            result.setMsg("添加失败");
+        }
+        result.setData(Arrays.asList(bean));
+        return result;
+    }
 }

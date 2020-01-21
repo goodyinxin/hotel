@@ -1,5 +1,6 @@
 package com.example.hotel.controller;
 
+import com.example.hotel.entity.User;
 import com.example.hotel.service.UserService;
 import com.example.hotel.utils.PageInfo;
 import com.example.hotel.utils.Result;
@@ -24,6 +25,10 @@ public class UserController {
         return result;
     }
 
-
+    @PostMapping("/save")
+    public Result list(@RequestBody User bean){
+        Result result = service.save(bean);
+        return result;
+    }
 
 }
