@@ -56,7 +56,7 @@ public class CodeGenerator {
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://47.93.59.160:3306/hotel?useUnicode=true&characterEncoding=utf-8&useSSL=true");
         // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("yinxin");
         mpg.setDataSource(dsc);
@@ -83,14 +83,14 @@ public class CodeGenerator {
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
+       /* focList.add(new FileOutConfig(templatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                 return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
-        });
+        });*/
         /*
         cfg.setFileCreate(new IFileCreate() {
             @Override
@@ -98,8 +98,7 @@ public class CodeGenerator {
                 // 判断自定义文件夹是否需要创建
                 checkDir("调用默认方法创建的目录");
                 return false;
-            }
-        });
+            }        });
         */
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
@@ -127,7 +126,7 @@ public class CodeGenerator {
         //strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id");
-        strategy.setInclude(scanner("表名"));
+        strategy.setInclude(scanner("admin_promise"));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);

@@ -7,7 +7,7 @@ public class JwtUtils {
 
 
     private static  final   String  key = "token";
-    private static  final   long   ttlMillis =1000*60*30;
+    private static  final   long   ttlMillis =1000*60*30*300;
     /**
      * 签发JWT
      * @return  String

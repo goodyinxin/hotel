@@ -2,12 +2,12 @@
   <el-card class="box-card">
 
     <!--面包屑-->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
+    <!--<el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
-
+    </el-breadcrumb>-->
+    <m-bread level1="用户管理" level2="用户列表"></m-bread>
     <!--搜索-->
     <el-row class="searchRow">
       <el-col>
@@ -46,8 +46,9 @@
       <el-table-column   prop="" label="操作">
 
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit"></el-button>
-          <el-button type="danger" @click="remove" icon="el-icon-delete"></el-button>
+          <el-button size="mini" type="primary" @click="open(scope.row.adminId)" icon="el-icon-edit"></el-button>
+          <el-button size="mini" type="danger" @click="remove(scope.row.adminId)" icon="el-icon-delete"></el-button>
+          <el-button size="mini" type="success" @click="role(scope.row)" icon="el-icon-user"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -69,7 +70,7 @@
     <!--对话框-->
     <!--添加的对话框-->
 
-    <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
+    <el-dialog  :title="title" :visible.sync="dialogFormVisible" width="30%">
       <el-form :model="form">
         <el-form-item label="用户名" label-width="80px">
           <el-input v-model="form.adminUsername" autocomplete="off"></el-input>
@@ -99,6 +100,27 @@
       </div>
     </el-dialog>
 
+
+    <!--权限-->
+
+    <el-dialog title="分配角色" :visible.sync="dialogFormRole" width="30%">
+      <el-form :model="form">
+        <el-form-item label="用户名" label-width="100px">
+          {{roleName}}
+        </el-form-item>
+        <el-form-item label="角色" label-width="100px">
+          <el-select v-model="form.adminRole" placeholder="请选择角色">
+            <el-option label="请选择" :value="-1"></el-option>
+            <el-option v-for="(item,i) in roleList" :key="i" :label="item.roleName" :value="item.roleId"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormRole = false">取 消</el-button>
+        <el-button type="primary" @click="setRole">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </el-card>
 </template>
 
@@ -106,10 +128,13 @@
     export default {
         data(){
           return{
+            title:'',
             tableData :[],
             total:0,
             page:{pagenum:1,pagesize:10,query:''},
             dialogFormVisible:false,
+            dialogFormRole:false,
+
             form:{
                 adminId:'',
                 adminUsername:'',
@@ -118,12 +143,16 @@
                 adminGende:'',
                 adminAge:'',
                 adminMoblie:'',
+                adminRole:'',
                 createman:'',
                 modifyman:'',
                 createtime:'',
                 modifytime:''
-            }
-
+            },
+              currnadminId:-1,
+              currnaroleId:-1,
+              roleName:'',
+              roleList:[]
           }
 
         },
@@ -135,18 +164,37 @@
 
         methods: {
 
+            open(id){
+                this.title='修改'
+                this.$http.get('user/load/'+id)
+                    .then(res=>{
+                       const {data,msg,code} = res.data;
+                       this.dialogFormVisible=true;
+                       this.form=data[0];
+                }).catch(res => {
+
+                });
+            },
 
 
-            remove(){
 
+            remove(id){
+                console.log(id)
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
+                    this.$http.delete('/user/remove/'+id).then(res=>{
+                        const {msg,code,data} =res.data;
+                        if(code ==='ok'){
+                            //this.page.pagenum=1;
+                            this.getList()
+                            this.$message({
+                                type: 'success',
+                                message: msg
+                            });
+                        }
                     });
                 }).catch(() => {
                     this.$message({
@@ -161,7 +209,7 @@
 
           /*添加用户*/
             async  save(){
-                this.dialogFormVisible=false;
+              this.dialogFormVisible=false;
               const res = await this.$http.post('/user/save',this.form);
               const {msg,code,data} =res.data;
                 if(code ==='ok'){
@@ -172,8 +220,35 @@
                 }
             },
 
+            success(){
+                this.dialogFormRole=true
+            },
+            role(obj){
+                this.currnadminId=obj.adminId
+                this.dialogFormRole=true
+                this.roleName=obj.adminNickname;
+                this.form.adminRole=obj.adminRole
+                this.$http.get('/role/select').then(res=>{
+                   const {msg,data,code}=res.data
+                   this.roleList=data
+
+                });
+
+            },
+
+            setRole(){
+                this.$http.get('/user/setrole/'+this.currnadminId+'/'+this.form.adminRole).then(res=>{
+                    const {msg,data,code}=res.data
+                });
+                this.dialogFormRole=false
+                this.getList()
+            },
+
+
           showDia(){
-            this.dialogFormVisible=true
+              this.title='添加'
+              this.dialogFormVisible=true
+              this.form={};
           },
 
           reload(){
@@ -197,8 +272,7 @@
           },
 
             async getList(){
-                const AUTH_TOKEN =localStorage.getItem('token');
-                this.$http.defaults.headers.common['AUTH_TOKEN'] =AUTH_TOKEN;
+
                 const res = await this.$http.post('/user/list',this.page);
                 const {msg,code,data} =res.data;
                 var obj = data[0];
@@ -232,12 +306,12 @@
 
 
   .Eltable th{
-     padding: 0px 0!important;
+     padding: 3px 0!important;
 
   }
 
 .Eltable td{
-  padding: 0px 0!important;
+  padding: 3px 0!important;
 
 }
 </style>

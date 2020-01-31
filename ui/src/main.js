@@ -6,7 +6,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import HttpServer from '@/plugins/http.js';
 import moment from 'moment'
-
+import Mbread from '@/components/cuscom/mbread.vue'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/reset.css'
@@ -23,6 +23,11 @@ Vue.use(HttpServer)
 Vue.filter('fmtdate',(v)=>{
   return moment(v).format('YYYY-MM-DD')
 })
+
+
+//全局组件
+Vue.component(Mbread.name,Mbread)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

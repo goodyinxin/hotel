@@ -1,21 +1,18 @@
 package com.example.hotel.controller;
 
-import com.example.hotel.entity.User;
-import com.example.hotel.service.UserService;
+import com.example.hotel.entity.Role;
+import com.example.hotel.service.RoleService;
 import com.example.hotel.utils.PageInfo;
 import com.example.hotel.utils.Result;
-import com.example.hotel.utils.State;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("/user")
-public class UserController {
-    @Autowired
-    private UserService service;
+@RequestMapping("/role")
+public class RoleController {
 
+    @Autowired
+    private   RoleService service;
 
     @PostMapping("/list")
     public Result list(@RequestBody PageInfo info){
@@ -25,8 +22,9 @@ public class UserController {
         return result;
     }
 
+
     @PostMapping("/save")
-    public Result save(@RequestBody User bean){
+    public Result save(@RequestBody Role bean){
         Result result = service.save(bean);
         return result;
     }
@@ -45,9 +43,9 @@ public class UserController {
     }
 
 
-    @GetMapping("/setrole/{id}/{roleid}")
-    public Result setrole(@PathVariable Long id,@PathVariable Long roleid){
-        Result result = service.setrole(id,roleid);
+    @GetMapping("/select")
+    public Result select(){
+        Result result = service.select();
         return result;
     }
 

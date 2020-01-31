@@ -1,18 +1,21 @@
 package com.example.hotel.entity;
 
 
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
 
 @TableName("admin_user")
-public  class User {
+public  class User implements Serializable {
 
-   // @TableId(type = IdType.AUTO)
+    private static final long serialVersionUID = 4126252740366265639L;
+    @TableId(value ="admin_id" ,type = IdType.INPUT)
     private Long adminId;
     private String adminUsername;
     private String adminPassword;
@@ -20,11 +23,21 @@ public  class User {
     private String adminGende;
     private Integer adminAge;
     private String adminMoblie;
+    private Long  adminRole;
     private String createman;
     private String modifyman;
-    private Date createtime;
-    private Date modifytime;
+    private Date createtime =new Date();
+    private Date modifytime=new Date();
 
+
+
+    public Long getAdminRole() {
+        return adminRole;
+    }
+
+    public void setAdminRole(Long adminRole) {
+        this.adminRole = adminRole;
+    }
 
     public Long getAdminId() {
         return adminId;
