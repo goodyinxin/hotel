@@ -18,8 +18,18 @@ public class Role implements Serializable {
     private String roleDesc;
     private String createman;
     private String modifyman;
+
+    private String children;
     private Date createtime =new Date();
     private Date modifytime=new Date();
+
+    public String getChildren() {
+        return children;
+    }
+
+    public void setChildren(String children) {
+        this.children = children;
+    }
 
     public Long getRoleId() {
         return roleId;

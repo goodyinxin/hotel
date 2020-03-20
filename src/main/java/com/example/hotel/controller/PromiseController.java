@@ -43,4 +43,11 @@ public class PromiseController {
         return result;
     }
 
+
+    @GetMapping("/role")
+    public Result role(){
+        Result result = service.role();
+        return result;
+    }
+
 }

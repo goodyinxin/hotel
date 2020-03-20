@@ -29,34 +29,61 @@
                  :router="true">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-user-solid"></i>
               <span>用户管理</span>
             </template>
               <el-menu-item index="user">
-                <i class="el-icon-location"></i>
+                <i class="el-icon-user"></i>
                 <span>用户列表</span>
               </el-menu-item>
           </el-submenu>
 
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-s-cooperation"></i>
               <span>权限管理</span>
             </template>
             <el-menu-item index="right">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-s-opportunity"></i>
               <span>权限列表</span>
             </el-menu-item>
             <el-menu-item index="role">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-s-custom"></i>
               <span>角色列表</span>
             </el-menu-item>
-            <el-menu-item index="1-1">
-              <i class="el-icon-location"></i>
-              <span>选项3</span>
-            </el-menu-item>
+
 
           </el-submenu>
+
+
+
+           <el-submenu index="3">
+             <template slot="title">
+               <i class="el-icon-school"></i>
+               <span>酒店管理</span>
+             </template>
+
+             <el-menu-item index="#">
+               <i class="el-icon-s-data"></i>
+               <span>信息看板</span>
+             </el-menu-item>
+             <el-menu-item index="#">
+               <i class="el-icon-s-home"></i>
+               <span>客房管理</span>
+             </el-menu-item>
+             <el-menu-item index="#">
+               <i class="el-icon-s-opportunity"></i>
+               <span>房态管理</span>
+             </el-menu-item>
+
+             <el-menu-item index="#">
+               <i class="el-icon-shopping-cart-2"></i>
+               <span>订单管理</span>
+             </el-menu-item>
+
+           </el-submenu>
+
+
         </el-menu>
 
 

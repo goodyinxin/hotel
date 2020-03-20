@@ -55,11 +55,36 @@
 
     <!--对话框-->
 
-    <el-dialog title="修改权限" :visible.sync="dialogFormVisible">
+    <el-dialog title="修改权限" :visible.sync="dialogFormVisible"   width="30%">
+
+      <!--树形结构
+      data -> 数据源[]
+      show-checkbox ->选择框
+      node-key 每个节点唯一标识，通常是data数据源中key的id值
+      dedault-expanded-keys 默认展开[要展开的节点id]
+      default-checked-keys [要选择节点的id]
+      props配置项{label，children}
+      label 节点的文字标题和children节点的子节点
+      值都来源于data绑定的数据源中的该数据的key名‘label’和‘children’
+        :default-expanded-keys="[2, 3]"
+        :default-checked-keys="[5]"
+      -->
+
+      <el-tree
+        ref="eltree"
+        :data="tree"
+        show-checkbox
+        node-key="promiseId"
+        :props="defaultProps"
+        default-expand-all
+        :default-checked-keys="arrayChecked"
+       >
+      </el-tree>
+
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="subRole">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -70,12 +95,15 @@
     export default {
         data(){
             return{
-                tableData:[],
-                page:{pagenum:1,pagesize:10,query:''},
-                total:0,
-                title:'',
-                dialogFormVisible:false,
-                form:{}
+              tableData:[],
+              page:{pagenum:1,pagesize:10,query:''},
+              total:0,
+              title:'',
+              dialogFormVisible:false,
+              form:{},
+              defaultProps:{label:'promiseName',children:'promises'},
+              tree: [],
+              arrayChecked:[]
             }
         },
 
@@ -85,11 +113,29 @@
 
         methods:{
 
-            open(){
+          async role(){
 
-                this.dialogFormVisible=true
 
+            const res = await this.$http.get('/promise/role');
+            const {msg,code,data} =res.data;
+            this.tree=data[0];
+
+            this.dialogFormVisible=true
             },
+
+
+          subRole(){
+
+            //全选
+            let arr1 = this.$refs.eltree.getCheckedKeys();
+
+            //半选
+            let arr2 = this.$refs.eltree.getHalfCheckedKeys();
+            let arr = [...arr1,...arr2];
+            console.log("全选",arr)
+            this.dialogFormVisible = false
+          },
+
 
             async getList(){
                 const res = await this.$http.post('/role/list',this.page);
