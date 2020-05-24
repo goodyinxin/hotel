@@ -3,7 +3,7 @@ package com.example.hotel.utils;
 
 
 public enum State implements StateCode{
-        OK("ok"),FAIL("fail");
+        OK("ok"),FAIL("fail"),UNAUTHENTICATED("unauthenticated");
 
     private String code;
     State(String code) {

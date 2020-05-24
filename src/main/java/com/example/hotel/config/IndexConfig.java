@@ -32,6 +32,6 @@ public class IndexConfig  implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(new LonginInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/","/index","/user/login","/webjars/**","/asserts/**");
+                .excludePathPatterns("/","/index","/user/login");
     }
 }

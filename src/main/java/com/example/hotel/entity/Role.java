@@ -19,16 +19,20 @@ public class Role implements Serializable {
     private String createman;
     private String modifyman;
 
-    private String children;
+    private String roleChildren;
     private Date createtime =new Date();
     private Date modifytime=new Date();
 
-    public String getChildren() {
-        return children;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setChildren(String children) {
-        this.children = children;
+    public String getRoleChildren() {
+        return roleChildren;
+    }
+
+    public void setRoleChildren(String roleChildren) {
+        this.roleChildren = roleChildren;
     }
 
     public Long getRoleId() {

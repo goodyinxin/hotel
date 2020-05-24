@@ -112,13 +112,11 @@ public class PromiseService {
         QueryWrapper<Promise> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(Promise::getPromisePid,0l);
         List<Promise> promises = mapper.selectList(wrapper);
-
         List<Promise> collect = promises.stream().map(x -> {
             Long promiseId = x.getPromiseId();
           /*  Label label = new Label();
             label.setId(promiseId+"");
             label.setLabel(x.getPromiseName());*/
-
             QueryWrapper<Promise> wrapper2 = new QueryWrapper<>();
             wrapper2.lambda().eq(Promise::getPromisePid, promiseId);
             List<Promise> list = mapper.selectList(wrapper2);
@@ -132,7 +130,6 @@ public class PromiseService {
              label.setChildren(labelList);
             */
             x.setPromises(list);
-
             return x;
         }).collect(Collectors.toList());
         result.setCode(State.OK.INFO());

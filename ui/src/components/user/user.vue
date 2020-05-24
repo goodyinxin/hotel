@@ -40,9 +40,6 @@
       </el-table-column>
 
 
-     <!-- <el-table-column   prop="address"  label="用户状态">
-      </el-table-column>
-      -->
       <el-table-column   prop="" label="操作">
 
         <template slot-scope="scope">
@@ -87,12 +84,7 @@
         <el-form-item label="手机" label-width="80px">
           <el-input v-model="form.adminMoblie" autocomplete="off"></el-input>
         </el-form-item>
-       <!-- <el-form-item label="活动区域" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>-->
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
