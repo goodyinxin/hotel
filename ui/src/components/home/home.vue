@@ -67,23 +67,30 @@
                <i class="el-icon-s-data"></i>
                <span>信息看板</span>
              </el-menu-item>
-             <el-menu-item index="#">
+             <el-menu-item index="room">
                <i class="el-icon-s-home"></i>
                <span>客房管理</span>
              </el-menu-item>
-             <el-menu-item index="#">
+             <el-menu-item index="day">
                <i class="el-icon-s-opportunity"></i>
                <span>房态管理</span>
              </el-menu-item>
 
-             <el-menu-item index="#">
-               <i class="el-icon-shopping-cart-2"></i>
+             <el-menu-item index="order">
+               <i class="el-icon-setting"></i>
                <span>订单管理</span>
              </el-menu-item>
 
            </el-submenu>
 
 
+
+           <el-submenu index="4">
+             <template slot="title">
+               <i class="el-icon-school"></i>
+               <span>系统菜单</span>
+             </template>
+           </el-submenu>
         </el-menu>
 
 

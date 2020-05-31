@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.hotel.entity.HotelDay;
 import com.example.hotel.entity.HotelOrder;
-import com.example.hotel.mapper.HotelOrderMapper;
+import com.example.hotel.entity.HotelRoom;
 import com.example.hotel.mapper.HoterRoomMapper;
 import com.example.hotel.utils.PageInfo;
 import com.example.hotel.utils.Result;
@@ -18,28 +17,21 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 @Service
-public class HotelOrderService {
+public class HotelRoomService {
 
     @Autowired
-    private HotelOrderMapper hotelOrderMapper;
+    private HoterRoomMapper hoterRoomMapper;
     @Autowired
     private SnowflakeIdWorker sequence;
 
 
-
-    public Result save(HotelOrder bean) {
-        Result result = new Result();
-        return result;
-    }
-
-
     public Result list(PageInfo info) {
-        Page<HotelOrder> page = new Page<>(info.getPagenum(),info.getPagesize());
-        QueryWrapper<HotelOrder> wrapper = new QueryWrapper<>();
+        Page<HotelRoom> page = new Page<>(info.getPagenum(),info.getPagesize());
+        QueryWrapper<HotelRoom> wrapper = new QueryWrapper<>();
         if(StringUtils.isNotEmpty(info.getQuery())){
-            wrapper.like("order_code",info.getQuery());
+            wrapper.like("room_name",info.getQuery());
         }
-        IPage<HotelOrder> userIPage = hotelOrderMapper.selectPage(page,wrapper);
+        IPage<HotelRoom> userIPage = hoterRoomMapper.selectPage(page,wrapper);
         Result result = new Result();
         result.getData().add(userIPage);
         return  result;
@@ -49,14 +41,15 @@ public class HotelOrderService {
 
     public Result load(Long id) {
         Result result = new Result();
-        HotelOrder hotelOrder = hotelOrderMapper.selectById(id);
-        if(hotelOrder == null){
+        HotelRoom hotelRoom = hoterRoomMapper.selectById(id);
+        if(hotelRoom == null){
             result.setCode(State.FAIL.INFO());
             result.setMsg("查询失败");
         }
         result.setCode(State.OK.INFO());
         result.setMsg("查询成功");
-        result.setData(Arrays.asList(hotelOrder));
+        result.setData(Arrays.asList(hotelRoom));
         return result;
     }
+
 }

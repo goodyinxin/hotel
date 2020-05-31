@@ -11,9 +11,19 @@ public class HotelDay {
     private Integer dayRoomid;
     private Date dayDate;
     private String createman;
+    private String  dayState;
     private  String  modifyman;
     private Date createtime;
     private  Date   modifytime;
+
+
+    public String getDayState() {
+        return dayState;
+    }
+
+    public void setDayState(String dayState) {
+        this.dayState = dayState;
+    }
 
     public Long getDayId() {
         return dayId;

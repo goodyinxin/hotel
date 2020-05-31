@@ -5,6 +5,11 @@ import  Home from '@/components/home/home.vue'
 import  User from '@/components/user/user.vue'
 import  Right from '@/components/rights/right.vue'
 import  Role from '@/components/rights/role.vue'
+import  Room from '@/components/hotel/room.vue'
+import  Order from '@/components/hotel/order.vue'
+import  Day from '@/components/hotel/day.vue'
+
+
 import {from} from "bootstrap-vue/esm/utils/array";
 
 
@@ -38,6 +43,21 @@ const router = new Router({
           name:'role',
           path:'/role',
           component:Role
+        },
+        {
+          name:'room',
+          path:'/room',
+          component:Room
+        },
+        {
+          name:'order',
+          path:'/order',
+          component:Order
+        },
+        {
+          name:'day',
+          path:'/day',
+          component:Day
         },
 
       ]

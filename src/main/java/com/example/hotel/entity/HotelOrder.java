@@ -1,9 +1,13 @@
 package com.example.hotel.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.Date;
-
+@TableName( "hotel_order" )
 public class HotelOrder {
-
+    @TableId(value = "order_id" ,type = IdType.INPUT)
     private   Long   orderId;
     private   String   orderCode;
     private   String  orderState;
